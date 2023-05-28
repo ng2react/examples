@@ -1,0 +1,9 @@
+node_modules
+/out
+/dist
+/build
+/src/angular/**/*.jsx
+/src/angular/**/*.tsx
+/.idea
+/.ng2react
+.DS_Store
