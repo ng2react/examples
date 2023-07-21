@@ -1,6 +1,6 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import path from 'path'
-const __dirname = path.dirname(new URL(import.meta.url).pathname)
+const __dirname = path.resolve(path.dirname(new URL(import.meta.url).pathname))
 
 export default {
   mode: 'development',
@@ -52,7 +52,11 @@ export default {
   devServer: {
     compress: true,
     port: 9000,
-    open: true,
+    open: {
+      app: {
+        name: 'Google Chrome',
+      },
+    },
     static: [
       {
         directory: path.resolve(__dirname, 'src/angular'),
