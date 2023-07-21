@@ -5,5 +5,8 @@
   "ng2react.source.angularRoot": "src/angular",
   "ng2react.source.reactRoot": "src/react",
   "ng2react.source.testRoot": "src/test",
-  "ng2react.targetLanguage": "typescript"
+  "cucumber.features": ["src/test/**/*.feature", "features/**/*.feature", "tests/**/*.feature", "*specs*/**/.feature"],
+  "[feature]": {
+    "editor.defaultFormatter": "alexkrechik.cucumberautocomplete"
+  }
 }

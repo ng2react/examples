@@ -40,6 +40,6 @@ angular
         template: '<transclude-example-app></transclude-example-app>',
       })
       .otherwise({
-        redirectTo: '/todo',
+        redirectTo: '/todo-list',
       })
   })

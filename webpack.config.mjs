@@ -1,11 +1,14 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import path from 'path'
-const __dirname = path.resolve(path.dirname(new URL(import.meta.url).pathname))
+import { createRequire } from 'node:module'
+const require = createRequire(import.meta.url)
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
 export default {
   mode: 'development',
   entry: {
-    app: path.resolve(__dirname, 'src/angular/app.ts'),
+    app: require.resolve('./src/angular/app.ts'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -19,6 +22,7 @@ export default {
         include: path.resolve(__dirname, 'src'),
         test: /\.(t|j)sx?$/,
         loader: 'ts-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.(le|c)ss$/i,
