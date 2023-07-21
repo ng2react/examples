@@ -1,17 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-interface StateBindingExampleProps {
-  twoWayBinding: boolean
-  onTwoWayBindingChange: (value: boolean) => void
-  oneWayBinding: boolean
-  stringBinding: string
-  optionalOneWayBinding?: boolean
-  optionalTwoWayBinding?: boolean
-  onOptionalTwoWayBindingChange?: (value: boolean) => void
-  optionalStringBinding?: string
-
-  readonly readOnlyOneWayBinding: boolean
-}
 
 const StateBindingExample = ({
   twoWayBinding,
@@ -23,10 +11,10 @@ const StateBindingExample = ({
   onOptionalTwoWayBindingChange,
   optionalStringBinding: initialOptionalStringBinding,
   readOnlyOneWayBinding,
-}: StateBindingExampleProps) => {
+}: any) => {
   const [oneWayBinding, setOneWayBinding] = useState(initialOneWayBinding)
-  const [optionalOneWayBinding, setOptionalOneWayBinding] = useState(initialOptionalOneWayBinding)
   const [stringBinding, setStringBinding] = useState(initialStringBinding)
+  const [optionalOneWayBinding, setOptionalOneWayBinding] = useState(initialOptionalOneWayBinding)
   const [optionalStringBinding, setOptionalStringBinding] = useState(initialOptionalStringBinding)
 
   const [changeCounter, setChangeCounter] = useState({
@@ -37,81 +25,75 @@ const StateBindingExample = ({
     readOnlyOneWayBinding: 0,
   })
 
-  const handleTwoWayBindingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onTwoWayBindingChange(e.target.checked)
-  }
-
   useEffect(() => {
     setOneWayBinding(initialOneWayBinding)
-    setChangeCounter({
-      ...changeCounter,
-      oneWayBinding: changeCounter.oneWayBinding + 1,
-    })
+    setChangeCounter((prev) => ({ ...prev, oneWayBinding: prev.oneWayBinding + 1 }))
   }, [initialOneWayBinding])
 
   useEffect(() => {
-    setOptionalOneWayBinding(initialOptionalOneWayBinding)
-    setChangeCounter({
-      ...changeCounter,
-      optionalOneWayBinding: changeCounter.optionalOneWayBinding + 1,
-    })
-  }, [initialOptionalOneWayBinding])
-
-  useEffect(() => {
     setStringBinding(initialStringBinding)
-    setChangeCounter({
-      ...changeCounter,
-      stringBinding: changeCounter.stringBinding + 1,
-    })
+    setChangeCounter((prev) => ({ ...prev, stringBinding: prev.stringBinding + 1 }))
   }, [initialStringBinding])
 
   useEffect(() => {
+    setOptionalOneWayBinding(initialOptionalOneWayBinding)
+    setChangeCounter((prev) => ({ ...prev, optionalOneWayBinding: prev.optionalOneWayBinding + 1 }))
+  }, [initialOptionalOneWayBinding])
+
+  useEffect(() => {
     setOptionalStringBinding(initialOptionalStringBinding)
-    setChangeCounter({
-      ...changeCounter,
-      optionalStringBinding: changeCounter.optionalStringBinding + 1,
-    })
+    setChangeCounter((prev) => ({ ...prev, optionalStringBinding: prev.optionalStringBinding + 1 }))
   }, [initialOptionalStringBinding])
 
   useEffect(() => {
-    setChangeCounter({
-      ...changeCounter,
-      readOnlyOneWayBinding: changeCounter.readOnlyOneWayBinding + 1,
-    })
+    setChangeCounter((prev) => ({ ...prev, readOnlyOneWayBinding: prev.readOnlyOneWayBinding + 1 }))
   }, [readOnlyOneWayBinding])
-
-  const handleOptionalTwoWayBindingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onOptionalTwoWayBindingChange?.(e.target.checked)
-  }
 
   return (
     <div className="stateBinding">
       <div>
         <label>
-          2-Way Binding <input type="checkbox" checked={twoWayBinding} onChange={handleTwoWayBindingChange} />
+          2-Way Binding{' '}
+          <input
+            name="2-Way"
+            type="checkbox"
+            checked={twoWayBinding}
+            onChange={(e) => onTwoWayBindingChange(e.target.checked)}
+          />
         </label>
       </div>
       <div>
         <label>
           1-Way Binding{' '}
-          <input type="checkbox" checked={oneWayBinding} onChange={(e) => setOneWayBinding(e.target.checked)} />
+          <input
+            name="1-Way"
+            type="checkbox"
+            checked={oneWayBinding}
+            onChange={(e) => setOneWayBinding(e.target.checked)}
+          />
         </label>
       </div>
       <div>
         <label>
-          String Binding <input value={stringBinding} onChange={(e) => setStringBinding(e.target.value)} />
+          String Binding <input name="String" value={stringBinding} onChange={(e) => setStringBinding(e.target.value)} />
         </label>
       </div>
       <div>
         <label>
           2-Way Binding (optional){' '}
-          <input type="checkbox" checked={optionalTwoWayBinding} onChange={handleOptionalTwoWayBindingChange} />
+          <input
+            name="Optional 2-Way"
+            type="checkbox"
+            checked={optionalTwoWayBinding}
+            onChange={(e) => onOptionalTwoWayBindingChange(e.target.checked)}
+          />
         </label>
       </div>
       <div>
         <label>
           1-Way Binding (optional){' '}
           <input
+            name="Optional 1-Way"
             type="checkbox"
             checked={optionalOneWayBinding}
             onChange={(e) => setOptionalOneWayBinding(e.target.checked)}
@@ -121,16 +103,19 @@ const StateBindingExample = ({
       <div>
         <label>
           String Binding (optional){' '}
-          <input value={optionalStringBinding} onChange={(e) => setOptionalStringBinding(e.target.value)} />
+          <input
+            name="Optional String"
+            value={optionalStringBinding}
+            onChange={(e) => setOptionalStringBinding(e.target.value)}
+          />
         </label>
       </div>
-
       <div>
         <label>
-          Readonly 1-Way Binding <input type="checkbox" checked={readOnlyOneWayBinding} readOnly />
+          Readonly 1-Way Binding{' '}
+          <input name="Readonly 1-Way" type="checkbox" checked={readOnlyOneWayBinding} disabled />
         </label>
       </div>
-
       <div>
         <label>
           onChanges Counter <pre>{JSON.stringify(changeCounter, null, 2)}</pre>
