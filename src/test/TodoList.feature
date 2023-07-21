@@ -1,4 +1,4 @@
-Feature: Todo List
+Feature: Todo List Parity
     Scenario: Lists appear the same
         Given I am on the todo list page
         Then I should see the "React" list
