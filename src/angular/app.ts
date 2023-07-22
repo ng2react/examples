@@ -19,7 +19,7 @@ angular
     'serviceInjectionExampleApp',
     'requireControllerExampleApp',
     'transcludeExampleApp',
-    'nonLeafApp'
+    'nonLeafApp',
   ])
   .config(($routeProvider: route.IRouteProvider) => {
     $routeProvider
