@@ -1,20 +1,20 @@
-import { defineConfig } from "cypress";
-import * as webpack from "@cypress/webpack-preprocessor";
-import { addCucumberPreprocessorPlugin } from "@badeball/cypress-cucumber-preprocessor";
+import { defineConfig } from 'cypress'
+import * as webpack from '@cypress/webpack-preprocessor'
+import { addCucumberPreprocessorPlugin } from '@badeball/cypress-cucumber-preprocessor'
 
 async function setupNodeEvents(
   on: Cypress.PluginEvents,
   config: Cypress.PluginConfigOptions
 ): Promise<Cypress.PluginConfigOptions> {
   // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
-  await addCucumberPreprocessorPlugin(on, config);
+  await addCucumberPreprocessorPlugin(on, config)
 
   on(
-    "file:preprocessor",
+    'file:preprocessor',
     webpack({
       webpackOptions: {
         resolve: {
-          extensions: [".ts", ".js"],
+          extensions: ['.ts', '.js'],
         },
         module: {
           rules: [
@@ -23,7 +23,7 @@ async function setupNodeEvents(
               exclude: [/node_modules/],
               use: [
                 {
-                  loader: "ts-loader",
+                  loader: 'ts-loader',
                 },
               ],
             },
@@ -31,7 +31,7 @@ async function setupNodeEvents(
               test: /\.feature$/,
               use: [
                 {
-                  loader: "@badeball/cypress-cucumber-preprocessor/webpack",
+                  loader: '@badeball/cypress-cucumber-preprocessor/webpack',
                   options: config,
                 },
               ],
@@ -40,16 +40,16 @@ async function setupNodeEvents(
         },
       },
     })
-  );
+  )
 
   // Make sure to return the config object as it might have been modified by the plugin.
-  return config;
+  return config
 }
 
 export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:9000',
-    specPattern: "./src/test/**/*.feature",
-    setupNodeEvents
+    specPattern: './src/test/**/*.feature',
+    setupNodeEvents,
   },
-});
+})

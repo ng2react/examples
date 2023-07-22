@@ -8,6 +8,7 @@ import './toggle-button/toggleButton.app'
 import './service-injection/serviceInjectionApp'
 import './require-controller/requireControllerExample.app'
 import './transclude/app'
+import './non-leaf/non-leaf.app'
 
 angular
   .module('app', [
@@ -18,6 +19,7 @@ angular
     'serviceInjectionExampleApp',
     'requireControllerExampleApp',
     'transcludeExampleApp',
+    'nonLeafApp'
   ])
   .config(($routeProvider: route.IRouteProvider) => {
     $routeProvider
@@ -38,6 +40,9 @@ angular
       })
       .when('/transclude', {
         template: '<transclude-example-app></transclude-example-app>',
+      })
+      .when('/non-leaf', {
+        template: '<non-leaf-app></non-leaf-app>',
       })
       .otherwise({
         redirectTo: '/todo-list',

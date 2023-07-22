@@ -18,6 +18,6 @@ angularize(WrapperUsage, {
   name: 'wrapperReact',
   module: app,
   bindings: {
-    text: '@'
-  }
+    text: '@',
+  },
 })

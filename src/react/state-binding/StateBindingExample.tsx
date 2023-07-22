@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-
 const StateBindingExample = ({
   twoWayBinding,
   onTwoWayBindingChange,
@@ -75,7 +74,8 @@ const StateBindingExample = ({
       </div>
       <div>
         <label>
-          String Binding <input name="String" value={stringBinding} onChange={(e) => setStringBinding(e.target.value)} />
+          String Binding{' '}
+          <input name="String" value={stringBinding} onChange={(e) => setStringBinding(e.target.value)} />
         </label>
       </div>
       <div>
