@@ -40,12 +40,12 @@ const RequireControllerExample: React.FC<RequireControllerExampleProps> = ({ par
     <div>
       <div>
         <label>
-          Name <input value={name} onChange={(e) => parent.setName(e.target.value)} />
+          Name <input value={name} onChange={(e) => parent.setName(e.target.value)} name="name" />
         </label>
       </div>
       <div>
         <label>
-          Status <input value={status} onChange={(e) => setStatus(e.target.value)} />
+          Status <input value={status} onChange={(e) => setStatus(e.target.value)} name="status" />
         </label>
         <button onClick={handleUpdateStatus}>Update</button>
       </div>
