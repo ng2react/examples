@@ -3,6 +3,7 @@ import './requireControllerExample.component'
 import './parentCtrl'
 import { angularize } from '@ng2react/support'
 import RequireControllerExample from '../../react/require-controller/RequireControllerExample'
+import { ParentCtrl } from './parentCtrl'
 const app = angular
   .module('requireControllerExampleApp', ['requireControllerExample', 'parentCtrl'])
   .component('requireControllerExampleApp', {

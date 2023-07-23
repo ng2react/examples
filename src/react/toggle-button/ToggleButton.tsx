@@ -1,54 +1,75 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 type Props = {
-    firstState: string,
-    firstStateLabel: string,
-    secondState: string,
-    secondStateLabel: string,
-    currentState: string,
-    onCurrentStateChange: (newValue: string) => void,
-    firstStateTooltip: string,
-    secondStateTooltip: string,
-    tooltipPosition?: 'left' | 'bottom-left' | 'bottom-right' | 'right'
+  firstState: string
+  firstStateLabel: string
+  secondState: string
+  secondStateLabel: string
+  currentState: string
+  onCurrentStateChange: (newValue: string) => void
+  firstStateTooltip: string
+  secondStateTooltip: string
+  tooltipPosition?: 'left' | 'bottom-left' | 'bottom-right' | 'right'
 }
 
-const ToggleButton = ({firstState, firstStateLabel, secondState, secondStateLabel, currentState, onCurrentStateChange, firstStateTooltip, secondStateTooltip, tooltipPosition = 'right'}: Props) => {
-    useEffect(() => {
-        if (!currentState) {
-            onCurrentStateChange(firstState)
-        }
-    }, [])
-
-    const getTooltipPositionClass = () => {
-        switch (tooltipPosition) {
-            case 'left':
-                return 'gxmUiTooltip__left'
-            case 'bottom-left':
-                return 'gxmUiTooltip__bottomLeft'
-            case 'bottom-right':
-                return 'gxmUiTooltip__bottomRight'
-            default:
-                return 'gxmUiTooltip__right'
-        }
+const ToggleButton = ({
+  firstState,
+  firstStateLabel,
+  secondState,
+  secondStateLabel,
+  currentState,
+  onCurrentStateChange,
+  firstStateTooltip,
+  secondStateTooltip,
+  tooltipPosition = 'right',
+}: Props) => {
+  useEffect(() => {
+    if (!currentState) {
+      onCurrentStateChange(firstState)
     }
+  }, [])
 
-    const toggle = () => {
-        onCurrentStateChange(currentState === firstState ? secondState : firstState)
+  const getTooltipPositionClass = () => {
+    switch (tooltipPosition) {
+      case 'left':
+        return 'gxmUiTooltip__left'
+      case 'bottom-left':
+        return 'gxmUiTooltip__bottomLeft'
+      case 'bottom-right':
+        return 'gxmUiTooltip__bottomRight'
+      default:
+        return 'gxmUiTooltip__right'
     }
+  }
 
-    return (
-        <div className="toggle-button" onClick={toggle}>
-            <p id="toggle-button__firstState" className={`toggle-button__label ${currentState === secondState ? 'toggle-button__label--fade' : ''}`}>
-                {firstStateLabel}
-            </p>
-            <div className={`toggle-button__switch ${getTooltipPositionClass()}`} data-tooltip={currentState === firstState ? firstStateTooltip : secondStateTooltip}>
-                <span className={`fa fa-plus-circle ${currentState === secondState ? 'toggle-button__switch--toggleState' : ''}`}></span>
-            </div>
-            <p id="toggle-button__secondState" className={`toggle-button__label ${currentState === firstState ? 'toggle-button__label--fade' : ''}`}>
-                {secondStateLabel}
-            </p>
-        </div>
-    )
+  const toggle = () => {
+    onCurrentStateChange(currentState === firstState ? secondState : firstState)
+  }
+
+  return (
+    <div className="toggle-button" onClick={toggle}>
+      <p
+        id="toggle-button__firstState"
+        className={`toggle-button__label ${currentState === secondState ? 'toggle-button__label--fade' : ''}`}
+      >
+        {firstStateLabel}
+      </p>
+      <div
+        className={`toggle-button__switch ${getTooltipPositionClass()}`}
+        data-tooltip={currentState === firstState ? firstStateTooltip : secondStateTooltip}
+      >
+        <span
+          className={`fa fa-plus-circle ${currentState === secondState ? 'toggle-button__switch--toggleState' : ''}`}
+        ></span>
+      </div>
+      <p
+        id="toggle-button__secondState"
+        className={`toggle-button__label ${currentState === firstState ? 'toggle-button__label--fade' : ''}`}
+      >
+        {secondStateLabel}
+      </p>
+    </div>
+  )
 }
 
 export default ToggleButton

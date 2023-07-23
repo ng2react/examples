@@ -1,10 +1,6 @@
-import React, { FunctionComponent, ReactNode } from 'react'
+import React from 'react'
 
-interface WrapperProps {
-  children: ReactNode
-}
-
-const Wrapper: FunctionComponent<WrapperProps> = ({ children }) => {
+const Wrapper = ({ children }) => {
   return (
     <div className="wrappedContentContainer">
       The following content has been wrapped:
