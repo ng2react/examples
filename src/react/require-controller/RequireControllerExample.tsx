@@ -11,20 +11,11 @@ type Props = {
 }
 
 const RequireControllerExample = ({ parent }: Props) => {
-  const [status, setStatus] = useState('')
+  const [status, setStatus] = useState(parent.getStatus())
 
   useEffect(() => {
     setStatus(parent.getStatus())
-  }, [])
-
-  useEffect(() => {
-    const status = parent.getStatus()
-    setStatus(status)
   }, [parent])
-
-  const handleNameChange = (e) => {
-    parent.name = e.target.value
-  }
 
   const handleStatusChange = (e) => {
     setStatus(e.target.value)
@@ -36,14 +27,12 @@ const RequireControllerExample = ({ parent }: Props) => {
 
   return (
     <div>
+      <label>
+        Name <input value={parent.name} name="name" readOnly />
+      </label>
       <div>
         <label>
-          Name <input value={parent.name} onChange={handleNameChange} name="name" />
-        </label>
-      </div>
-      <div>
-        <label>
-          Status <input value={status} onChange={handleStatusChange} name="status" />
+          Status <input value={status} name="status" onChange={handleStatusChange} />
         </label>
         <button onClick={handleUpdateClick}>Update</button>
       </div>
