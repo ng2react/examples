@@ -1,9 +1,5 @@
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor'
 
-Given(`the non-leaf page is loaded`, () => {
-  cy.visit('#!/non-leaf')
-})
-
 Then(`the input element exists`, () => {
   cy.get('non-leaf-react input[name="name"]').should('be.visible')
 })

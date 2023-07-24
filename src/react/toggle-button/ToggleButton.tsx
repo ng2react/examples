@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 type Props = {
   firstState: string
@@ -23,12 +23,6 @@ const ToggleButton = ({
   secondStateTooltip,
   tooltipPosition = 'right',
 }: Props) => {
-  useEffect(() => {
-    if (!currentState) {
-      onCurrentStateChange(firstState)
-    }
-  }, [])
-
   const getTooltipPositionClass = () => {
     switch (tooltipPosition) {
       case 'left':
@@ -56,7 +50,7 @@ const ToggleButton = ({
       </p>
       <div
         className={`toggle-button__switch ${getTooltipPositionClass()}`}
-        data-tooltip={currentState === firstState ? firstStateTooltip : secondStateTooltip}
+        title={currentState === firstState ? firstStateTooltip : secondStateTooltip}
       >
         <span
           className={`fa fa-plus-circle ${currentState === secondState ? 'toggle-button__switch--toggleState' : ''}`}

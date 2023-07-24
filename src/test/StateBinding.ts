@@ -6,10 +6,6 @@ type BindingType = RequiredBindType | `Optional ${RequiredBindType}`
 const stateBox = (name: BindingType) => cy.get(`#parentState input[name="${name}"]`)
 const reactStateBox = (name: BindingType) => cy.get(`state-binding-example-react input[name="${name}"]`)
 
-Given(`I have loaded the state-binding page`, () => {
-  cy.visit('#!/state-binding')
-})
-
 When(`the parent {string} binding state is changed`, (name: BindingType) => {
   if (name.includes('String')) {
     stateBox(name).clear().type('Hello Child')

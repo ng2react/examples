@@ -1,10 +1,5 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor'
 
-Given(`I am on the todo list page`, () => {
-  cy.clearAllLocalStorage()
-  cy.visit('/#!/todo-list')
-})
-
 Then(`I should see the {string} list`, (framework: string) => {
   const css = framework.toLowerCase() === 'react' ? 'todo-list-react' : 'todo-list'
   cy.get(`${css}`).should('be.visible')

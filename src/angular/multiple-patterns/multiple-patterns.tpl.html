@@ -1,0 +1,27 @@
+<secton>
+  <div class="serviceInjection">
+    <label>Message <input ng-model="$ctrl.message"></label> <button ng-click="$ctrl.updateMessage()">Send</button>
+  </div>
+  <div class="wrappedContentContainer">
+    The following content has been wrapped: <ng-transclude></ng-transclude>
+  </div>
+  <div class="nonLeaf">
+    <label>Name <input ng-model="$ctrl.name" name="name" /></label>
+    <leaf name="$ctrl.name"></leaf>
+  </div>
+  <div class="toggle-button" ng-click="$ctrl.toggle()">
+    <p id="toggle-button__firstState" class="toggle-button__label"
+      ng-class="{'toggle-button__label--fade': $ctrl.currentState === $ctrl.secondState}">
+      {{$ctrl.firstStateLabel}}
+    </p>
+    <div class="toggle-button__switch" ng-class="$ctrl.getTooltipPositionClass()"
+      data-tooltip="{{$ctrl.currentState === $ctrl.firstState ? $ctrl.firstStateTooltip : $ctrl.secondStateTooltip}}">
+      <span ng-class="{'toggle-button__switch--toggleState': $ctrl.currentState === $ctrl.secondState}"
+        class="fa fa-plus-circle"></span>
+    </div>
+    <p id="toggle-button__secondState" class="toggle-button__label"
+      ng-class="{'toggle-button__label--fade': $ctrl.currentState === $ctrl.firstState}">
+      {{$ctrl.secondStateLabel}}
+    </p>
+  </div>
+</secton>

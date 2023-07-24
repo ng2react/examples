@@ -1,9 +1,5 @@
 import { Given, When, Then, DataTable } from '@badeball/cypress-cucumber-preprocessor'
 
-Given(`I am on the toggle button page`, () => {
-  cy.visit('/#!/toggle-btn')
-})
-
 Then(`both buttons show the same value`, () => {
   cy.get('toggle-button .toggle-button__label--fade').then(($el) => {
     const value = $el.text().trim()

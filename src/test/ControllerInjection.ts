@@ -7,10 +7,6 @@ const getInput = (component: Component, name: Name) => {
   return cy.get(`${css} input[name="${name}"]`)
 }
 
-Given(`the controller injection page is loaded`, () => {
-  cy.visit('#!/require-controller')
-})
-
 When(`the {string} on the {string} component is set to {string}`, (name: Name, component: Component, value: string) => {
   getInput(component, name).clear().type(value)
 })

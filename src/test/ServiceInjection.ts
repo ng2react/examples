@@ -1,9 +1,5 @@
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor'
 
-Given(`the service injection page is loaded`, () => {
-  cy.visit('#!/service-injection')
-})
-
 Then(`the react component contains an input`, () => {
   cy.get('service-injection-example-react input').should('be.visible')
 })

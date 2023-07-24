@@ -1,0 +1,27 @@
+<div>The Current State is: <span id="toggleButton__ParentState" ng-bind="state.currentState"></span></div>
+
+<div id="serviceInjection__UpdatedText">
+  Stored Message: {{ message() }}
+</div>
+<div class="ng2react__sideBySide">
+  <multiple-patterns 
+        first-state="{{state.firstState}}"
+        first-state-label="{{state.firstStateLabel}}"
+        first-state-tooltip="{{state.firstStateTooltip}}"
+        second-state="{{state.secondState}}"
+        second-state-label="{{state.secondStateLabel}}"
+        second-state-tooltip="{{state.secondStateTooltip}}"
+        current-state="state.currentState"
+  >Hello, World</multiple-patterns>
+  <multiple-patterns-react 
+        text="Hello, World" 
+        first-state="{{state.firstState}}"
+        first-state-label="{{state.firstStateLabel}}"
+        first-state-tooltip="{{state.firstStateTooltip}}"
+        second-state="{{state.secondState}}"
+        second-state-label="{{state.secondStateLabel}}"
+        second-state-tooltip="{{state.secondStateTooltip}}"
+        current-state="state.currentState"
+        on-current-state-change="onCurrentStateChange(currentState)"
+  ></multiple-patterns-react>
+</div>

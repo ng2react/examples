@@ -9,6 +9,7 @@ import './service-injection/serviceInjectionApp'
 import './require-controller/requireControllerExample.app'
 import './transclude/app'
 import './non-leaf/non-leaf.app'
+import './multiple-patterns/app'
 
 angular
   .module('app', [
@@ -20,6 +21,7 @@ angular
     'requireControllerExampleApp',
     'transcludeExampleApp',
     'nonLeafApp',
+    'multiplePatternsApp',
   ])
   .config(($routeProvider: route.IRouteProvider) => {
     $routeProvider
@@ -43,6 +45,9 @@ angular
       })
       .when('/non-leaf', {
         template: '<non-leaf-app></non-leaf-app>',
+      })
+      .when('/multiple-patterns', {
+        template: '<multiple-patterns-app></multiple-patterns-app>',
       })
       .otherwise({
         redirectTo: '/todo-list',
