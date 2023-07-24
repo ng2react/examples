@@ -21,6 +21,6 @@ const app = angular.module('todoListApp', ['todoList', 'todoListService', 'todoL
 angularize(TodoList, {
   name: 'todoListReact',
   bindings: {
-    items: ['=', 'setItems'],
+    items: ['=', 'onItemsChange'],
   },
 })

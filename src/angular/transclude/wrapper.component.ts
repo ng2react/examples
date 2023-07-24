@@ -7,5 +7,6 @@ import * as angular from 'angular'
 
 angular.module('wrapper', []).component('wrapper', {
   transclude: true,
-  template: '<div><ng-transclude></ng-transclude></div>',
+  template:
+    '<div class="wrappedContentContainer">The following content has been wrapped:<br/><ng-transclude></ng-transclude><br/>The end</div>',
 })

@@ -1,5 +1,4 @@
-import angular, { IQService, IRootScopeService } from 'angular'
-import { resolve } from 'path'
+import angular, { IQService } from 'angular'
 
 export interface MyService {
   readonly message: string

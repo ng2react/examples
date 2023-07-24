@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 type Props = {
   firstState: string
@@ -6,10 +6,10 @@ type Props = {
   secondState: string
   secondStateLabel: string
   currentState: string
+  onCurrentStateChange: (newValue: string) => void
   firstStateTooltip: string
   secondStateTooltip: string
-  tooltipPosition?: string
-  onCurrentStateChange(state: string): void
+  tooltipPosition?: 'left' | 'bottom-left' | 'bottom-right' | 'right'
 }
 
 const ToggleButton = ({
@@ -18,37 +18,47 @@ const ToggleButton = ({
   secondState,
   secondStateLabel,
   currentState,
+  onCurrentStateChange,
   firstStateTooltip,
   secondStateTooltip,
-  onCurrentStateChange,
-  tooltipPosition = '',
+  tooltipPosition = 'right',
 }: Props) => {
+  const getTooltipPositionClass = () => {
+    switch (tooltipPosition) {
+      case 'left':
+        return 'gxmUiTooltip__left'
+      case 'bottom-left':
+        return 'gxmUiTooltip__bottomLeft'
+      case 'bottom-right':
+        return 'gxmUiTooltip__bottomRight'
+      default:
+        return 'gxmUiTooltip__right'
+    }
+  }
+
   const toggle = () => {
     onCurrentStateChange(currentState === firstState ? secondState : firstState)
   }
-
-  const getTooltipPositionClass = () => {
-    return tooltipPosition ? `toggle-button__switch--${tooltipPosition}` : ''
-  }
-
-  const currentTooltip = currentState === firstState ? firstStateTooltip : secondStateTooltip
 
   return (
     <div className="toggle-button" onClick={toggle}>
       <p
         id="toggle-button__firstState"
-        className={`toggle-button__label${currentState === secondState ? ' toggle-button__label--fade' : ''}`}
+        className={`toggle-button__label ${currentState === secondState ? 'toggle-button__label--fade' : ''}`}
       >
         {firstStateLabel}
       </p>
-      <div className={`toggle-button__switch ${getTooltipPositionClass()}`} data-tooltip={currentTooltip}>
+      <div
+        className={`toggle-button__switch ${getTooltipPositionClass()}`}
+        title={currentState === firstState ? firstStateTooltip : secondStateTooltip}
+      >
         <span
-          className={`fa fa-plus-circle${currentState === secondState ? ' toggle-button__switch--toggleState' : ''}`}
+          className={`fa fa-plus-circle ${currentState === secondState ? 'toggle-button__switch--toggleState' : ''}`}
         ></span>
       </div>
       <p
         id="toggle-button__secondState"
-        className={`toggle-button__label${currentState === firstState ? ' toggle-button__label--fade' : ''}`}
+        className={`toggle-button__label ${currentState === firstState ? 'toggle-button__label--fade' : ''}`}
       >
         {secondStateLabel}
       </p>
@@ -57,12 +67,3 @@ const ToggleButton = ({
 }
 
 export default ToggleButton
-
-/*
-Assumptions and potential issues:
-
-I assumed that the my-tooltip attribute in the AngularJS template is a custom directive for showing tooltips. In the React component, I replaced it with a data-tooltip attribute, which can be used by a tooltip library or custom CSS to display the tooltip. You may need to adjust this based on your tooltip implementation.
-The tooltipPosition prop has a default value of an empty string, which means that if it's not provided, the getTooltipPositionClass function will return an empty string. This is consistent with the AngularJS component's behavior.
-I used the useState hook to manage the currentState value, which is initialized with the initialCurrentState prop. This assumes that the component is being used in a React environment that supports hooks (React 16.8 or later).
-The AngularJS component uses the fa fa-plus-circle classes for the switch icon. This assumes that you have the Font Awesome library included in your project. If you're using a different icon library or custom icons, you may need to adjust the class names accordingly.
-*/

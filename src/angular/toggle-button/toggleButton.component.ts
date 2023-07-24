@@ -6,12 +6,6 @@
 import * as angular from 'angular'
 import { isNil } from 'lodash'
 
-export enum TooltipPosition {
-  left = 'left',
-  bottomLeft = 'bottom-left',
-  bottomRight = 'bottom-right',
-}
-
 class ToggleButtonCtrl implements angular.IController {
   public readonly firstState!: string
   public readonly firstStateLabel!: string
@@ -19,7 +13,7 @@ class ToggleButtonCtrl implements angular.IController {
   public readonly secondStateLabel!: string
   public readonly firstStateTooltip!: string
   public readonly secondStateTooltip!: string
-  public readonly tooltipPosition!: TooltipPosition
+  public readonly tooltipPosition!: 'left' | 'bottom-left' | 'bottom-right' | 'right'
   public currentState!: string
 
   public $onInit() {
@@ -30,11 +24,11 @@ class ToggleButtonCtrl implements angular.IController {
 
   public getTooltipPositionClass() {
     switch (this.tooltipPosition) {
-      case TooltipPosition.left:
+      case 'left':
         return 'gxmUiTooltip__left'
-      case TooltipPosition.bottomLeft:
+      case 'bottom-left':
         return 'gxmUiTooltip__bottomLeft'
-      case TooltipPosition.bottomRight:
+      case 'bottom-right':
         return 'gxmUiTooltip__bottomRight'
       default:
         return 'gxmUiTooltip__right'

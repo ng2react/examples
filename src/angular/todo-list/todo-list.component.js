@@ -29,6 +29,6 @@ angular.module('todoList', []).component('todoList', {
   controller: TodoListCtrl,
   templateUrl: 'templates/todo-list/todo-list.tpl.html',
   bindings: {
-    items: '<',
+    items: '=',
   },
 })

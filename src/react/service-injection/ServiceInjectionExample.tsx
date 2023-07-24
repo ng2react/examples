@@ -1,40 +1,41 @@
-import { useService } from '@ng2react/support'
 import React, { useEffect, useState } from 'react'
+import { useService } from '@ng2react/support'
 
-export interface MyService {
-  readonly message: string
-  setMessage: (msg: string) => Promise<void>
-  getMessage: () => Promise<string>
-}
-
-const ServiceInjectionExample = ({}) => {
-  const myService: MyService = useService('myService')
+const ServiceInjectionExample = () => {
+  const myService = useService('myService') as any
   const [message, setMessage] = useState('')
 
-  const updateMessage = async () => {
-    const msg = await myService.getMessage()
-    setMessage(msg)
-  }
-
   useEffect(() => {
-    updateMessage()
-  }, [])
+    const fetchMessage = async () => {
+      try {
+        const msg = await myService.getMessage()
+        setMessage(msg)
+      } catch (e) {
+        const err = e as Error
+        setMessage('Error: ' + err.message)
+      }
+    }
 
-  const handleUpdateMessage = () => {
-    myService
-      .setMessage(message)
-      .then(updateMessage)
-      .catch((e) => {
-        setMessage('Error: ' + (e as Error).message)
-      })
+    fetchMessage()
+  }, [myService])
+
+  const updateMessage = async () => {
+    try {
+      await myService.setMessage(message)
+      const msg = await myService.getMessage()
+      setMessage(msg)
+    } catch (e) {
+      const err = e as Error
+      setMessage('Error: ' + err.message)
+    }
   }
 
   return (
     <div>
       <label>
         Message <input value={message} onChange={(e) => setMessage(e.target.value)} />
-      </label>{' '}
-      <button onClick={handleUpdateMessage}>Send</button>
+      </label>
+      <button onClick={updateMessage}>Send</button>
     </div>
   )
 }

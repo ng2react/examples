@@ -2,7 +2,7 @@ import angular from 'angular'
 import './wrapper.component'
 import './app.less'
 import { angularize } from '@ng2react/support'
-import Wrapper from '../../react/transclude/Wrapper'
+import WrapperUsage from '../../react/transclude/WrapperUsage'
 
 const app = angular
   .module('transcludeExampleApp', ['wrapper'])
@@ -14,8 +14,10 @@ const app = angular
     template: 'How will GPT cope with this?',
   })
 
-angularize(Wrapper, {
+angularize(WrapperUsage, {
   name: 'wrapperReact',
   module: app,
-  transclude: true,
+  bindings: {
+    text: '@',
+  },
 })

@@ -1,0 +1,6 @@
+default:
+  features: ['./src/test/**/*.feature']
+  requireModule: ['ts-node/register']
+  # require: ['cypress/e2e/**/*.ts']
+  # worldParameters:
+  #   appUrl: http://localhost:9000/

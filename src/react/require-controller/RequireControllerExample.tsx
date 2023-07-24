@@ -1,53 +1,41 @@
 import React, { useEffect, useState } from 'react'
 
-interface ParentProps {
+type Props = {
   name: string
-  getStatus(): string
   setName: (name: string) => void
+  status: string
   updateStatus: (status: string) => void
-  onStatusChange(listener: (status: string) => void): () => void
-  onNameChange(listener: (name: string) => void): () => void
 }
 
-interface RequireControllerExampleProps {
-  parent: ParentProps
-}
+const RequireControllerExample = ({ name, setName, status, updateStatus }: Props) => {
+  const [localStatus, setLocalStatus] = useState(status)
 
-const RequireControllerExample: React.FC<RequireControllerExampleProps> = ({ parent }) => {
-  const [status, setStatus] = useState(parent.getStatus())
-  const [name, setName] = useState(parent.name)
+  useEffect(() => {
+    setLocalStatus(status)
+  }, [status])
 
-  useEffect(
-    () =>
-      parent.onStatusChange((newStatus) => {
-        setStatus(newStatus)
-      }),
-    []
-  )
+  const handleNameChange = (e) => {
+    setName(e.target.value)
+  }
 
-  useEffect(
-    () =>
-      parent.onNameChange((newName) => {
-        setName(newName)
-      }),
-    []
-  )
-  const handleUpdateStatus = () => {
-    parent.updateStatus(status)
+  const handleStatusChange = (e) => {
+    setLocalStatus(e.target.value)
+  }
+
+  const handleUpdateClick = () => {
+    updateStatus(localStatus)
   }
 
   return (
     <div>
+      <label>
+        Name <input value={name} onChange={handleNameChange} name="name" />
+      </label>
       <div>
         <label>
-          Name <input value={name} onChange={(e) => parent.setName(e.target.value)} />
+          Status <input value={localStatus} onChange={handleStatusChange} name="status" />
+          <button onClick={handleUpdateClick}>Update</button>
         </label>
-      </div>
-      <div>
-        <label>
-          Status <input value={status} onChange={(e) => setStatus(e.target.value)} />
-        </label>
-        <button onClick={handleUpdateStatus}>Update</button>
       </div>
     </div>
   )
