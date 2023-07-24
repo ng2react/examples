@@ -1,24 +1,25 @@
 **Approach:**
 - I have renamed the component to MultiplePatterns
 - I have replaced the transclude functionality with the React equivalent
-- I have replaced the controller with a functional component
-- I have replaced the service injection with a custom hook
-- I have replaced the two-way binding with a callback function
-- I have replaced the one-way bindings with props
-- I have replaced the ng-model with a controlled component
-- I have replaced the ng-click with an onClick event
-- I have replaced the ng-class with a ternary operator
+- I have replaced the AngularJS service injection with a custom hook
+- I have replaced the AngularJS controller with a functional component
+- I have replaced the AngularJS two-way binding with a callback function
+- I have replaced the AngularJS one-way binding with a prop
+- I have replaced the AngularJS string binding with a prop
+- I have replaced the AngularJS optional binding with a prop with a default value
+- I have replaced the AngularJS ng-model with a controlled component
+- I have replaced the AngularJS ng-click with an onClick event handler
+- I have replaced the AngularJS ng-class with a ternary operator
 
 **Assumptions:**
 - I am assuming that since currentState is a 2-way binding, its state is managed by the parent component
 - I am assuming that a custom hook called useService is available via a library called @ng2react/support
-- It is a bad idea to import AngularJS services directly into React so I have assumed that a wrapper for myService called myService will be available
-- I am assuming that the Leaf component has been converted to a React component and is available for import
+- I am assuming that a non-angular service called myService can be used instead of the AngularJS service
+- I am assuming that the Leaf component is available as a React component
 
 **Potential Issues:**
 - The AngularJS component uses the transclude functionality. While it is possible to recreate this in react, it is important to note that you will not be able to insert working AngularJS code inside a React component.
 - The AngularJS component uses a service. While it is possible to recreate this in react, it is important to note that you will not be able to use AngularJS services inside a React component.
-- The AngularJS component uses a controller. While it is possible to recreate this in react, it is important to note that you will not be able to use AngularJS controllers inside a React component.
 
 ```tsx
 
@@ -35,7 +36,8 @@ type Props = {
   onCurrentStateChange: (newValue: string) => void
   firstStateTooltip: string
   secondStateTooltip: string
-  tooltipPosition: 'left' | 'bottom-left' | 'bottom-right' | 'right'
+  tooltipPosition?: 'left' | 'bottom-left' | 'bottom-right' | 'right'
+  children: React.ReactNode
 }
 
 const MultiplePatterns = ({
@@ -47,28 +49,33 @@ const MultiplePatterns = ({
   onCurrentStateChange,
   firstStateTooltip,
   secondStateTooltip,
-  tooltipPosition,
-  children
+  tooltipPosition = 'right',
+  children,
 }: Props) => {
   const myService = useService('myService')
   const [message, setMessage] = useState('')
   const [name, setName] = useState('John Doe')
 
   useEffect(() => {
-    if (!currentState) {
-      onCurrentStateChange(firstState)
+    const fetchMessage = async () => {
+      try {
+        const msg = await myService.getMessage()
+        setMessage(msg)
+      } catch (e) {
+        setMessage('Error: ' + e.message)
+      }
     }
-    myService.getMessage().then(setMessage).catch((err: Error) => setMessage('Error: ' + err.message))
-  }, [])
+    fetchMessage()
+  }, [myService])
 
   const updateMessage = async () => {
     try {
       await myService.setMessage(message)
     } catch (e) {
-      const err = e as Error
-      setMessage('Error: ' + err.message)
+      setMessage('Error: ' + e.message)
     } finally {
-      setMessage(await myService.getMessage())
+      const msg = await myService.getMessage()
+      setMessage(msg)
     }
   }
 
@@ -98,10 +105,7 @@ const MultiplePatterns = ({
         <button onClick={updateMessage}>Send</button>
       </div>
       <div className="wrappedContentContainer">
-        The following content has been wrapped:
-        <br />
-        {children}
-        <br />The end
+        The following content has been wrapped: {children}
       </div>
       <div className="nonLeaf">
         <label>

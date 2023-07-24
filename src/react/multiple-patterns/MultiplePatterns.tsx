@@ -11,7 +11,7 @@ type Props = {
   onCurrentStateChange: (newValue: string) => void
   firstStateTooltip: string
   secondStateTooltip: string
-  tooltipPosition: 'left' | 'bottom-left' | 'bottom-right' | 'right',
+  tooltipPosition: 'left' | 'bottom-left' | 'bottom-right' | 'right'
   children: React.ReactNode
 }
 
@@ -25,27 +25,33 @@ const MultiplePatterns = ({
   firstStateTooltip,
   secondStateTooltip,
   tooltipPosition,
-  children
+  children,
 }: Props) => {
   const myService = useService('myService') as any
   const [message, setMessage] = useState('')
   const [name, setName] = useState('John Doe')
 
   useEffect(() => {
-    if (!currentState) {
-      onCurrentStateChange(firstState)
+    const fetchMessage = async () => {
+      try {
+        const message = await myService.getMessage()
+        setMessage(message)
+      } catch (e) {
+        setMessage('Error: ' + e.message)
+      }
     }
-    myService.getMessage().then(setMessage).catch((err: Error) => setMessage('Error: ' + err.message))
-  }, [])
+
+    fetchMessage()
+  }, [myService])
 
   const updateMessage = async () => {
     try {
       await myService.setMessage(message)
     } catch (e) {
-      const err = e as Error
-      setMessage('Error: ' + err.message)
+      setMessage('Error: ' + e.message)
     } finally {
-      setMessage(await myService.getMessage())
+      const message = await myService.getMessage()
+      setMessage(message)
     }
   }
 
