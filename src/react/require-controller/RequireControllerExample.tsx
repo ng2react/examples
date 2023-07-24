@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 type ParentCtrl = {
   name: string
@@ -12,6 +12,7 @@ type Props = {
 
 const RequireControllerExample = ({ parent }: Props) => {
   const [status, setStatus] = useState(parent.getStatus())
+  const [name, setName] = useState(parent.name)
 
   useEffect(() => {
     setStatus(parent.getStatus())
@@ -21,18 +22,24 @@ const RequireControllerExample = ({ parent }: Props) => {
     setStatus(e.target.value)
   }
 
+  const handleNameChange = (e) => {
+    setName(e.target.value)
+  }
+
   const handleUpdateClick = () => {
     parent.updateStatus(status)
   }
 
   return (
     <div>
-      <label>
-        Name <input value={parent.name} name="name" readOnly />
-      </label>
       <div>
         <label>
-          Status <input value={status} name="status" onChange={handleStatusChange} />
+          Name <input value={name} onChange={handleNameChange} name="name" />
+        </label>
+      </div>
+      <div>
+        <label>
+          Status <input value={status} onChange={handleStatusChange} name="status" />
         </label>
         <button onClick={handleUpdateClick}>Update</button>
       </div>
