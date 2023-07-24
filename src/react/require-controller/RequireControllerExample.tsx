@@ -10,22 +10,22 @@ type Props = {
     parent: ParentCtrl
 }
 
-const RequireControllerExample = ({ parent }: Props) => {
-    const [status, setStatus] = useState('')
+const RequireControllerExample = ({parent}: Props) => {
+    const [status, setStatus] = useState(parent.getStatus())
 
     useEffect(() => {
-        setStatus(parent.getStatus())
+        const interval = setInterval(() => {
+            setStatus(parent.getStatus())
+        }, 1000)
+
+        return () => clearInterval(interval)
     }, [parent])
 
-    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        parent.name = e.target.value
-    }
-
-    const handleStatusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleStatusChange = (e) => {
         setStatus(e.target.value)
     }
 
-    const handleUpdateClick = () => {
+    const handleStatusUpdate = () => {
         parent.updateStatus(status)
     }
 
@@ -35,9 +35,9 @@ const RequireControllerExample = ({ parent }: Props) => {
                 <label>
                     Name{' '}
                     <input
+                        type="text"
                         value={parent.name}
-                        onChange={handleNameChange}
-                        name="name"
+                        readOnly
                     />
                 </label>
             </div>
@@ -45,11 +45,12 @@ const RequireControllerExample = ({ parent }: Props) => {
                 <label>
                     Status{' '}
                     <input
+                        type="text"
                         value={status}
                         onChange={handleStatusChange}
                     />
                 </label>
-                <button onClick={handleUpdateClick} name="status">
+                <button onClick={handleStatusUpdate}>
                     Update
                 </button>
             </div>

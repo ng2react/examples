@@ -14,6 +14,7 @@ When(`the {string} on the {string} component is set to {string}`, (name: Name, c
 Then(
   `the {string} on the {string} component is equal to {string}`,
   (name: Name, component: Component, value: string) => {
+    cy.wait(1000) // Allow for timeout generated in placee of $watch
     getInput(component, name).should('have.value', value)
   }
 )
