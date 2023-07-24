@@ -32,11 +32,9 @@ const RequireControllerExample = ({ parent }: Props) => {
 
   return (
     <div>
-      <div>
-        <label>
-          Name <input value={name} onChange={handleNameChange} name="name" />
-        </label>
-      </div>
+      <label>
+        Name <input value={name} onChange={handleNameChange} name="name" />
+      </label>
       <div>
         <label>
           Status <input value={status} onChange={handleStatusChange} name="status" />
