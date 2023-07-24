@@ -15,37 +15,43 @@ const RequireControllerExample = ({ parent }: Props) => {
 
     useEffect(() => {
         setStatus(parent.getStatus())
-    }, [])
-
-    useEffect(() => {
-        const unwatch = parent.getStatus()
-        setStatus(unwatch)
     }, [parent])
 
-    const handleStatusChange = (e) => {
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        parent.name = e.target.value
+    }
+
+    const handleStatusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setStatus(e.target.value)
     }
 
-    const handleUpdateStatus = () => {
+    const handleUpdateClick = () => {
         parent.updateStatus(status)
     }
 
     return (
         <div>
-            <label>
-                Name{' '}
-                <input
-                    value={parent.name}
-                    onChange={(e) => (parent.name = e.target.value)}
-                    name="name"
-                />
-            </label>
+            <div>
+                <label>
+                    Name{' '}
+                    <input
+                        value={parent.name}
+                        onChange={handleNameChange}
+                        name="name"
+                    />
+                </label>
+            </div>
             <div>
                 <label>
                     Status{' '}
-                    <input value={status} onChange={handleStatusChange} name="status" />
+                    <input
+                        value={status}
+                        onChange={handleStatusChange}
+                    />
                 </label>
-                <button onClick={handleUpdateStatus}>Update</button>
+                <button onClick={handleUpdateClick} name="status">
+                    Update
+                </button>
             </div>
         </div>
     )
