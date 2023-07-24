@@ -1,56 +1,54 @@
 import React, { useEffect, useState } from 'react'
 
-interface ParentProps {
-  name: string
-  getStatus(): string
-  setName: (name: string) => void
-  updateStatus: (status: string) => void
-  onStatusChange(listener: (status: string) => void): () => void
-  onNameChange(listener: (name: string) => void): () => void
+type ParentCtrl = {
+    name: string
+    getStatus: () => string
+    updateStatus: (status: string) => void
 }
 
-interface RequireControllerExampleProps {
-  parent: ParentProps
+type Props = {
+    parent: ParentCtrl
 }
 
-const RequireControllerExample: React.FC<RequireControllerExampleProps> = ({ parent }) => {
-  const [status, setStatus] = useState(parent.getStatus())
-  const [name, setName] = useState(parent.name)
+const RequireControllerExample = ({ parent }: Props) => {
+    const [status, setStatus] = useState('')
 
-  useEffect(
-    () =>
-      parent.onStatusChange((newStatus) => {
-        setStatus(newStatus)
-      }),
-    []
-  )
+    useEffect(() => {
+        setStatus(parent.getStatus())
+    }, [])
 
-  useEffect(
-    () =>
-      parent.onNameChange((newName) => {
-        setName(newName)
-      }),
-    []
-  )
-  const handleUpdateStatus = () => {
-    parent.updateStatus(status)
-  }
+    useEffect(() => {
+        const unwatch = parent.getStatus()
+        setStatus(unwatch)
+    }, [parent])
 
-  return (
-    <div>
-      <div>
-        <label>
-          Name <input value={name} onChange={(e) => parent.setName(e.target.value)} name="name" />
-        </label>
-      </div>
-      <div>
-        <label>
-          Status <input value={status} onChange={(e) => setStatus(e.target.value)} name="status" />
-        </label>
-        <button onClick={handleUpdateStatus}>Update</button>
-      </div>
-    </div>
-  )
+    const handleStatusChange = (e) => {
+        setStatus(e.target.value)
+    }
+
+    const handleUpdateStatus = () => {
+        parent.updateStatus(status)
+    }
+
+    return (
+        <div>
+            <label>
+                Name{' '}
+                <input
+                    value={parent.name}
+                    onChange={(e) => (parent.name = e.target.value)}
+                    name="name"
+                />
+            </label>
+            <div>
+                <label>
+                    Status{' '}
+                    <input value={status} onChange={handleStatusChange} name="status" />
+                </label>
+                <button onClick={handleUpdateStatus}>Update</button>
+            </div>
+        </div>
+    )
 }
 
 export default RequireControllerExample
