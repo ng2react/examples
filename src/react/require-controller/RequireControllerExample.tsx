@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
 type ParentCtrl = {
-  name: string
   getStatus: () => string
   updateStatus: (status: string) => void
+  name: string
 }
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 }
 
 const RequireControllerExample = ({ parent }: Props) => {
-  const [status, setStatus] = useState(parent.getStatus())
+  const [status, setStatus] = useState('')
   const [name, setName] = useState(parent.name)
 
   useEffect(() => {
@@ -26,24 +26,20 @@ const RequireControllerExample = ({ parent }: Props) => {
     setName(e.target.value)
   }
 
-  const handleUpdateClick = () => {
+  const handleUpdateStatus = () => {
     parent.updateStatus(status)
   }
 
   return (
     <div>
+      <label>
+        Name <input value={name} onChange={handleNameChange} name="name" />
+      </label>
       <div>
         <label>
-          Name <input type="text" value={name} onChange={handleNameChange} name="name" />
+          Status <input value={status} onChange={handleStatusChange} name="status" />
         </label>
-      </div>
-      <div>
-        <label>
-          Status <input type="text" value={status} onChange={handleStatusChange} />
-        </label>
-        <button onClick={handleUpdateClick} name="status">
-          Update
-        </button>
+        <button onClick={handleUpdateStatus}>Update</button>
       </div>
     </div>
   )
