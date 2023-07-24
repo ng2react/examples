@@ -10,5 +10,5 @@
     "editor.defaultFormatter": "alexkrechik.cucumberautocomplete"
   },
   "ng2react.customPrompt.location": ".ng2react",
-  "ng2react.customPrompt.enabled": true
+  "ng2react.customPrompt.enabled": false
 }

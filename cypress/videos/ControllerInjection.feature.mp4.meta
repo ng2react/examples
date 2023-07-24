@@ -1,0 +1,21 @@
+;FFMETADATA1
+[CHAPTER]
+TIMEBASE=1/1000
+START=612
+END=3199
+title=Controller Injection Parity Inital States Match
+[CHAPTER]
+TIMEBASE=1/1000
+START=2964
+END=5788
+title=Controller Injection Parity Parent Updates Child
+[CHAPTER]
+TIMEBASE=1/1000
+START=7152
+END=8614
+title=Controller Injection Parity Controller Properties update
+[CHAPTER]
+TIMEBASE=1/1000
+START=8582
+END=10077
+title=Controller Injection Parity Controller callbacks called

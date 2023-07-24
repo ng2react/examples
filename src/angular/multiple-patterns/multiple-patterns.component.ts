@@ -4,7 +4,7 @@ import { isNil } from 'lodash'
 
 class MyCtrl {
   message = ''
-  name='John Doe'
+  name = 'John Doe'
   public readonly firstState!: string
   public readonly firstStateLabel!: string
   public readonly secondState!: string
@@ -25,7 +25,7 @@ class MyCtrl {
     try {
       this.message = await this.myService.getMessage()
     } catch (e) {
-      const err = e as Error;
+      const err = e as Error
       this.message = 'Error: ' + err.message
     }
   }
@@ -34,7 +34,7 @@ class MyCtrl {
     try {
       await this.myService.setMessage(this.message)
     } catch (e) {
-      const err = e as Error;
+      const err = e as Error
       this.message = 'Error: ' + err.message
     } finally {
       this.message = await this.myService.getMessage()

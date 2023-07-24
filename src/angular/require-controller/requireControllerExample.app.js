@@ -1,9 +1,8 @@
-import angular from 'angular'
-import './requireControllerExample.component'
-import './parentCtrl'
 import { angularize } from '@ng2react/support'
+import angular from 'angular'
 import RequireControllerExample from '../../react/require-controller/RequireControllerExample'
-import { ParentCtrl } from './parentCtrl'
+import './parentCtrl'
+import './requireControllerExample.component'
 const app = angular
   .module('requireControllerExampleApp', ['requireControllerExample', 'parentCtrl'])
   .component('requireControllerExampleApp', {
@@ -12,8 +11,10 @@ const app = angular
 
 angularize(RequireControllerExample, {
   name: 'requireControllerExampleReact',
-  require: {
-    parent: '^parentCtrl',
+  bindings: {
+    name: ['=', "setName"],
+    status: '<',
+    updateStatus: '<'
   },
   module: app,
 })

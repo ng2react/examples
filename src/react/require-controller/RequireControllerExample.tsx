@@ -1,33 +1,29 @@
 import React, { useEffect, useState } from 'react'
 
-type ParentCtrl = {
+type Props = {
   name: string
-  getStatus: () => string
+  setName: (name: string) => void
+  status: string
   updateStatus: (status: string) => void
 }
 
-type Props = {
-  parent: ParentCtrl
-}
-
-const RequireControllerExample = ({ parent }: Props) => {
-  const [status, setStatus] = useState(parent.getStatus())
-  const [name, setName] = useState(parent.name)
+const RequireControllerExample = ({ name, setName, status, updateStatus }: Props) => {
+  const [localStatus, setLocalStatus] = useState(status)
 
   useEffect(() => {
-    setStatus(parent.getStatus())
-  }, [parent])
-
-  const handleStatusChange = (e) => {
-    setStatus(e.target.value)
-  }
+    setLocalStatus(status)
+  }, [status])
 
   const handleNameChange = (e) => {
     setName(e.target.value)
   }
 
+  const handleStatusChange = (e) => {
+    setLocalStatus(e.target.value)
+  }
+
   const handleUpdateClick = () => {
-    parent.updateStatus(status)
+    updateStatus(localStatus)
   }
 
   return (
@@ -37,9 +33,9 @@ const RequireControllerExample = ({ parent }: Props) => {
       </label>
       <div>
         <label>
-          Status <input value={status} onChange={handleStatusChange} name="status" />
+          Status <input value={localStatus} onChange={handleStatusChange} name="status" />
+          <button onClick={handleUpdateClick}>Update</button>
         </label>
-        <button onClick={handleUpdateClick}>Update</button>
       </div>
     </div>
   )

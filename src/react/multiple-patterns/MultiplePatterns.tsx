@@ -80,9 +80,7 @@ const MultiplePatterns = ({
         </label>{' '}
         <button onClick={updateMessage}>Send</button>
       </div>
-      <div className="wrappedContentContainer">
-        The following content has been wrapped: {children}
-      </div>
+      <div className="wrappedContentContainer">The following content has been wrapped: {children}</div>
       <div className="nonLeaf">
         <label>
           Name <input value={name} onChange={(e) => setName(e.target.value)} name="name" />
@@ -100,7 +98,9 @@ const MultiplePatterns = ({
           className={`toggle-button__switch ${getTooltipPositionClass()}`}
           data-tooltip={currentState === firstState ? firstStateTooltip : secondStateTooltip}
         >
-          <span className={`fa fa-plus-circle ${currentState === secondState ? 'toggle-button__switch--toggleState' : ''}`}></span>
+          <span
+            className={`fa fa-plus-circle ${currentState === secondState ? 'toggle-button__switch--toggleState' : ''}`}
+          ></span>
         </div>
         <p
           id="toggle-button__secondState"

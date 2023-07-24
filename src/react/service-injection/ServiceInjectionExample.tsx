@@ -11,7 +11,7 @@ const ServiceInjectionExample = () => {
         const msg = await myService.getMessage()
         setMessage(msg)
       } catch (e) {
-        const err = e as Error;
+        const err = e as Error
         setMessage('Error: ' + err.message)
       }
     }
@@ -25,7 +25,7 @@ const ServiceInjectionExample = () => {
       const msg = await myService.getMessage()
       setMessage(msg)
     } catch (e) {
-      const err = e as Error;
+      const err = e as Error
       setMessage('Error: ' + err.message)
     }
   }
