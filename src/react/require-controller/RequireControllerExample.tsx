@@ -11,17 +11,23 @@ type Props = {
 }
 
 const RequireControllerExample = ({parent}: Props) => {
+    const [name, setName] = useState(parent.name)
     const [status, setStatus] = useState(parent.getStatus())
+    const [initialStatus, setInitialStatus] = useState(parent.getStatus())
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setStatus(parent.getStatus())
+            if (parent.name !== name || parent.getStatus() !== initialStatus) {
+                setStatus(parent.getStatus())
+                setInitialStatus(parent.getStatus())
+                setName(parent.name)
+            }
         }, 1000)
 
         return () => clearInterval(interval)
-    }, [parent])
+    }, [parent.getStatus(), parent.name])
 
-    const handleStatusChange = (e) => {
+    const handleStatusChange = (e: any) => {
         setStatus(e.target.value)
     }
 
@@ -29,6 +35,10 @@ const RequireControllerExample = ({parent}: Props) => {
         parent.updateStatus(status)
     }
 
+    const handleNameChange = (e: any) => {
+        parent.name = e.target.value
+        setName(e.target.value)
+    }
     return (
         <div>
             <div>
@@ -37,7 +47,8 @@ const RequireControllerExample = ({parent}: Props) => {
                     <input
                         type="text"
                         value={parent.name}
-                        readOnly
+                        onChange={handleNameChange}
+                        name="name"
                     />
                 </label>
             </div>
@@ -48,6 +59,7 @@ const RequireControllerExample = ({parent}: Props) => {
                         type="text"
                         value={status}
                         onChange={handleStatusChange}
+                        name="status"
                     />
                 </label>
                 <button onClick={handleStatusUpdate}>

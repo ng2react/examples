@@ -1,17 +1,27 @@
 import angular, { IScope } from 'angular'
 
 export class ParentCtrl {
-  name = 'Bob'
+  private _name = 'Bob'
   private status = 'Waiting for input...'
-
   constructor(readonly $scope: IScope) {}
+
+
+  set name(name: string) {
+    this._name = name
+    this.$scope.$evalAsync()
+  }
+
+  get name() {
+    return this._name
+  }
+
   getStatus() {
     return this.status
   }
 
   setName(name: string) {
     this.$scope.$evalAsync(() => {
-      this.name = name
+      this._name = name
     })
   }
 

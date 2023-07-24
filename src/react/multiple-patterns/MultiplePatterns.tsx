@@ -37,7 +37,7 @@ const MultiplePatterns = ({
         const message = await myService.getMessage()
         setMessage(message)
       } catch (e) {
-        setMessage('Error: ' + e.message)
+        setMessage('Error: ' + (e as Error).message)
       }
     }
 
@@ -48,7 +48,7 @@ const MultiplePatterns = ({
     try {
       await myService.setMessage(message)
     } catch (e) {
-      setMessage('Error: ' + e.message)
+      setMessage('Error: ' + (e as Error).message)
     } finally {
       const message = await myService.getMessage()
       setMessage(message)
